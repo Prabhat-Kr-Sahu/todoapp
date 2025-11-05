@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: todo
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+  backend:
+    build: ./backend
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/todo
+      JWT_SECRET_KEY: supersecretjwt
+      SECRET_KEY: devsecret
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+volumes:
+  pgdata:
