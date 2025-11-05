@@ -10,34 +10,7 @@
 
 <body class="bg-pastel">
     <div class="container">
-        <header class="top-grid">
-            <div class="card greeting">
-                <h1>Hello, Nixtio</h1>
-                <p class="muted">How do you feel about your current emotions?</p>
-                <div class="moods">
-                    <button class="mood">😊</button>
-                    <button class="mood">🙂</button>
-                    <button class="mood">😐</button>
-                    <button class="mood">😟</button>
-                    <button class="mood">😔</button>
-                </div>
-            </div>
-
-            <div class="card progress">
-                <div class="progress-title">Your progress</div>
-                <div class="progress-number">89%</div>
-                <div class="progress-visual">
-                    <!-- decorative dots -->
-                    <div class="dots">
-                        <div class="dot on"></div>
-                        <div class="dot on"></div>
-                        <div class="dot on"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                    </div>
-                </div>
-            </div>
-        </header>
+        <!-- greeting removed as requested -->
 
         <main class="main-grid">
             <section class="card quick-actions">
@@ -69,6 +42,21 @@
 
                 <div id="todoList" class="todo-list"></div>
             </section>
+
+            <aside class="card progress-card">
+                <div class="progress-title">Your progress</div>
+                <div class="progress-number">89%</div>
+                <div class="progress-visual">
+                    <div class="dots">
+                        <div class="dot on"></div>
+                        <div class="dot on"></div>
+                        <div class="dot on"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+                <div class="progress-details muted">Open tasks: <span id="openCount">0</span></div>
+            </aside>
         </main>
 
         <footer class="card footer-card">

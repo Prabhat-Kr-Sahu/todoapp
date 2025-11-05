@@ -56,6 +56,7 @@ async function loadTodos() {
     if (!res.ok) { $('.todo-list').innerHTML = '<div class="muted">Unable to load todos</div>'; return; }
     const todos = await res.json();
     renderTodos(todos);
+    updateProgress(todos);
 }
 
 function renderTodos(todos) {
@@ -77,6 +78,17 @@ function renderTodos(todos) {
         node.querySelector('.del').addEventListener('click', () => deleteTodo(node.dataset.id));
         node.querySelector('.chk').addEventListener('change', (e) => toggleTodo(node.dataset.id, e.target.checked));
     });
+}
+
+function updateProgress(todos) {
+    const total = todos ? todos.length : 0;
+    const open = todos ? todos.filter(t => !t.completed).length : 0;
+    const done = total - open;
+    const pct = total === 0 ? 0 : Math.round((done / total) * 100);
+    const numEl = document.querySelector('.progress-number');
+    const openEl = document.getElementById('openCount');
+    if (numEl) numEl.textContent = pct + '%';
+    if (openEl) openEl.textContent = open;
 }
 
 function escapeHtml(s) { return (s + '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": "&#39;" }[c])); }

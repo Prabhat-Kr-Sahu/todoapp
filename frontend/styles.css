@@ -48,8 +48,10 @@ html {
 
 .main-grid {
     display: grid;
-    grid-template-columns: 1fr 420px;
-    gap: 20px
+    /* left: tiles, middle: todos, right: progress */
+    grid-template-columns: 1fr 420px 300px;
+    gap: 20px;
+    align-items: start;
 }
 
 .greeting h1 {
@@ -77,10 +79,23 @@ html {
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.04)
 }
 
-.progress {
+.progress,
+.progress-card {
     display: flex;
     flex-direction: column;
-    justify-content: space-between
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+}
+
+.progress-card .progress-number {
+    font-size: 56px;
+    margin: 8px 0 12px;
+}
+
+.progress-card .progress-details {
+    margin-top: 12px
 }
 
 .progress-number {
@@ -235,7 +250,7 @@ html {
         grid-template-columns: 1fr;
     }
 
-    .progress {
+    .progress-card {
         order: 2
     }
 }
