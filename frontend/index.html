@@ -4,34 +4,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo App</title>
-    <script>
-        // This is just a placeholder. In a real application,
-        // you would use a proper frontend framework like React
-        function fetchTodos() {
-            fetch('http://localhost:5000/todos', {
-                headers: {
-                    'Authorization': localStorage.getItem('token')
-                }
-            })
-                .then(response => response.json())
-                .then(todos => {
-                    const todoList = document.getElementById('todoList');
-                    todoList.innerHTML = todos.map(todo => `
-                    <div>
-                        <h3>${todo.title}</h3>
-                        <p>${todo.description}</p>
-                        <input type="checkbox" ${todo.completed ? 'checked' : ''}>
-                    </div>
-                `).join('');
-                });
-        }
-    </script>
+    <title>Todo App — Bright</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
-    <h1>Todo App</h1>
-    <div id="todoList"></div>
+<body class="bg-pastel">
+    <div class="container">
+        <header class="top-grid">
+            <div class="card greeting">
+                <h1>Hello, Nixtio</h1>
+                <p class="muted">How do you feel about your current emotions?</p>
+                <div class="moods">
+                    <button class="mood">😊</button>
+                    <button class="mood">🙂</button>
+                    <button class="mood">😐</button>
+                    <button class="mood">😟</button>
+                    <button class="mood">😔</button>
+                </div>
+            </div>
+
+            <div class="card progress">
+                <div class="progress-title">Your progress</div>
+                <div class="progress-number">89%</div>
+                <div class="progress-visual">
+                    <!-- decorative dots -->
+                    <div class="dots">
+                        <div class="dot on"></div>
+                        <div class="dot on"></div>
+                        <div class="dot on"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-grid">
+            <section class="card quick-actions">
+                <div class="tiles">
+                    <div class="tile tile-blue">My Strengths &amp; Qualities</div>
+                    <div class="tile tile-yellow">Build Confidence</div>
+                    <div class="tile tile-green">Diversity &amp; Inclusion</div>
+                    <div class="tile tile-soft">Behavioral Activation</div>
+                </div>
+            </section>
+
+            <section class="card todos-card">
+                <div class="todos-header">
+                    <h2>Todos</h2>
+                    <div class="auth">
+                        <input id="username" placeholder="username">
+                        <input id="password" placeholder="password" type="password">
+                        <button id="loginBtn">Login</button>
+                        <button id="registerBtn">Register</button>
+                    </div>
+                </div>
+
+                <div id="authMsg" class="muted"></div>
+
+                <div class="add-todo">
+                    <input id="newTodo" placeholder="Add a new todo...">
+                    <button id="addBtn">Add</button>
+                </div>
+
+                <div id="todoList" class="todo-list"></div>
+            </section>
+        </main>
+
+        <footer class="card footer-card">
+            <div class="footer-left">Made with 💖 — vibrant pastel theme</div>
+            <div class="footer-right">Server: <span id="serverStatus">unknown</span></div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 
 </html>
