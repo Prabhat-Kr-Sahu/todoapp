@@ -1,0 +1,15 @@
+[Unit]
+Description=Gunicorn instance for todoapp
+After=network.target
+
+[Service]
+User=todoapp
+Group=www-data
+RuntimeDirectory=todoapp
+WorkingDirectory=/home/todoapp/todoapp/backend
+EnvironmentFile=/home/todoapp/todoapp/backend/.env
+ExecStart=/home/todoapp/todoapp/backend/venv/bin/gunicorn --workers 3 --bind unix:/run/todoapp/todoapp.sock 'app:create_app()'
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

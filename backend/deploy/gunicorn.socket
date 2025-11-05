@@ -1,0 +1,11 @@
+[Unit]
+Description=gunicorn socket for todoapp
+
+[Socket]
+ListenStream=/run/todoapp/todoapp.sock
+SocketUser=todoapp
+SocketGroup=www-data
+SocketMode=0660
+
+[Install]
+WantedBy=sockets.target

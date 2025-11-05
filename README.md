@@ -72,3 +72,50 @@ todo-app/
 - User authentication
 - Docker containerization
 - CI/CD with GitHub Actions
+
+## Deployment: EC2 (Ubuntu) — Gunicorn + systemd + Nginx
+
+This repo includes deploy helper files under `backend/deploy/` and an example `.env` at `backend/.env.example`.
+
+Quick steps to deploy on an Ubuntu EC2 instance (replace values as needed):
+
+1. SSH to EC2:
+```bash
+ssh -i yourkey.pem ubuntu@<EC2_PUBLIC_IP>
+```
+
+2. On the EC2 instance you can run the included helper script (reads `backend/.env`):
+```bash
+# on the EC2 instance
+cd /home/ubuntu
+# fetch/clone the repo (script will clone if missing)
+bash backend/deploy/deploy_ec2.sh
+```
+
+3. The script will:
+- install python3, venv, nginx, git
+- clone or update the repo
+- create and activate a venv and install requirements
+- copy `backend/deploy/gunicorn.service` to `/etc/systemd/system/gunicorn.service` and start/enable it
+- copy `backend/deploy/nginx_todo` to `/etc/nginx/sites-available/todo` and enable it
+- create DB tables (runs a simple create_all)
+
+4. Before re-running the script, edit `/home/ubuntu/todoapp/backend/.env` with production values (DATABASE_URL, JWT_SECRET_KEY, SECRET_KEY). You can copy `.env.example`.
+
+5. Check services and logs:
+```bash
+sudo systemctl status gunicorn
+sudo journalctl -u gunicorn -f
+sudo tail -f /var/log/nginx/error.log
+```
+
+Files provided in repo (copy/paste-ready):
+- `backend/deploy/gunicorn.service` — systemd unit
+- `backend/deploy/nginx_todo` — nginx site config (enable by copying to `/etc/nginx/sites-available/todo`)
+- `backend/deploy/deploy_ec2.sh` — convenience script to bootstrap deployment
+- `backend/.env.example` — example environment variables
+
+If you want, I can:
+- Customize the `gunicorn.service` user/group to a non-ubuntu account (recommended for production)
+- Add `ufw` firewall commands and Certbot automation for TLS
+- Help you run the commands interactively and troubleshoot any errors you see on the server
